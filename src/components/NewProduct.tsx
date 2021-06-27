@@ -1,4 +1,33 @@
+//Actions from redux
+import React, { useState } from "react";
+import { createNewProductAction } from "../actions/productAction";
+import { useDispatch, useSelector } from "react-redux";
+
 const NewProduct = () => {
+  //state component
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState<number>(100);
+
+  //use disparch and return a function
+  const dispatch = useDispatch();
+
+  // llamar action productAction
+  const addProduct = (product) => dispatch(createNewProductAction(product));
+
+  const handleNewProduct = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    //validate
+    if (name.trim() === "" || price <= 0) {
+      return;
+    }
+
+    //there are no erros
+
+    //create product
+    addProduct({ name, price });
+  }
+
   return (
     <div className="row  justify-content-center">
       <div className="col-md-8">
@@ -7,7 +36,7 @@ const NewProduct = () => {
             <h2 className="text-center mb-4 font-weight-bold">
               Add new product
             </h2>
-            <form>
+            <form onSubmit={handleNewProduct}>
               <div className="form-group">
                 <label htmlFor="p-name">Product Name</label>
                 <input
@@ -15,6 +44,8 @@ const NewProduct = () => {
                   className="form-control"
                   name="p-name"
                   placeholder="Put product name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -24,9 +55,9 @@ const NewProduct = () => {
                   className="form-control"
                   name="p-price"
                   placeholder="Put product price"
-                  min="0"
                   step="1"
-                  defaultValue="10"
+                  value={price}
+                  onChange={e => setPrice(Number(e.target.value))}
                 />
               </div>
               <button
