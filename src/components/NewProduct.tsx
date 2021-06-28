@@ -3,13 +3,20 @@ import React, { useState } from "react";
 import { createNewProductAction } from "../actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
 
-const NewProduct = () => {
+
+const NewProduct = ({ history }) => {
   //state component
   const [name, setName] = useState('');
   const [price, setPrice] = useState<number>(100);
 
   //use disparch and return a function
   const dispatch = useDispatch();
+
+  //Accedeer al state
+  const state = useSelector((state: any) => state.productos);
+
+
+
 
   // llamar action productAction
   const addProduct = (product) => dispatch(createNewProductAction(product));
@@ -26,6 +33,9 @@ const NewProduct = () => {
 
     //create product
     addProduct({ name, price });
+
+    //Redirect home
+    history.push("/");
   }
 
   return (
@@ -67,6 +77,8 @@ const NewProduct = () => {
                 Add Product
               </button>
             </form>
+            {state.loading ? <p>Loading ...</p> : null}
+            {state.error ? <p className="alert alert-danger p2 mt-4 text-center">There is an error</p> : null}
           </div>
         </div>
       </div>
