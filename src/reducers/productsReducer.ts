@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import {
     ADD_PRODUCT,
     ADD_PRODUCT_ERROR,
@@ -12,7 +11,6 @@ import {
     PRODUCT_EDIT_ERROR,
     PRODUCT_EDIT_SUCCESS,
     GET_PRODUCT_EDIT,
-    START_PRODUCT_EDIT
 } from "../types";
 
 // each reducer has your own state
@@ -24,7 +22,7 @@ const initialState = {
     productEdit: null
 }
 
-export default function (state = initialState, action: any) {
+export default function productReducer(state = initialState, action: any) {
     switch (action.type) {
         case ADD_PRODUCT:
         case START_DOWNLOAD_PRODUCTS:
@@ -41,6 +39,7 @@ export default function (state = initialState, action: any) {
         case ADD_PRODUCT_ERROR:
         case START_DOWNLOAD_ERROR:
         case PRODUCT_DELETE_ERROR:
+        case PRODUCT_EDIT_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -66,9 +65,18 @@ export default function (state = initialState, action: any) {
                 productDelete: null
             }
         case GET_PRODUCT_EDIT:
-            return{
+            return {
                 ...state,
                 productEdit: action.payload
+            }
+        case PRODUCT_EDIT_SUCCESS:
+            return {
+                ...state,
+                productEdit: null,
+                products: state.products.map(
+                    product => product.id === action.payload.id ?
+                        product = action.payload : product
+                )
             }
         default:
             return state;

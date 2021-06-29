@@ -1,24 +1,29 @@
 {
   "productos": [
     {
+      "id": 1,
       "nombre": "Apple Juice",
-      "precio": 100,
-      "id": 1
+      "precio": "500"
     },
     {
+      "id": 2,
       "nombre": "Pear Jouice",
-      "precio": 100,
-      "id": 2
+      "precio": "400"
     },
     {
-      "nombre": "Patoate Juice",
-      "precio": 200,
-      "id": 3
+      "id": 3,
+      "nombre": "Potato Juice",
+      "precio": "300"
     },
     {
-      "nombre": "Fany Juice",
-      "precio": 100,
-      "id": 4
+      "id": 4,
+      "nombre": "Fakir Juice",
+      "precio": "200"
+    },
+    {
+      "nombre": "Lemon Juice",
+      "precio": 490,
+      "id": 6
     }
   ]
 }

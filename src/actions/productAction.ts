@@ -140,15 +140,20 @@ export function getProductEditAction(product) {
 export function editProductAction(product) {
     return async (dispatch) => {
         dispatch({
-            type: START_PRODUCT_EDIT,
-            payload: product
+            type: START_PRODUCT_EDIT
         })
 
         try {
             const response = await axios.put(`/productos/${product.id}`, product);
-            console.log(response);
+            dispatch({
+                type: PRODUCT_EDIT_SUCCESS,
+                payload: response.data
+            });
         } catch (error) {
-            console.log(error);
+           dispatch({
+               type: PRODUCT_EDIT_ERROR,
+               payload: true
+           })
         }
     }
 }

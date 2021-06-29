@@ -1,6 +1,9 @@
 //Actions from redux
 import React, { useState } from "react";
 import { createNewProductAction } from "../actions/productAction";
+
+import { showAlert, hideAlertAction } from "../actions/alertaAction";
+
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -14,8 +17,7 @@ const NewProduct = ({ history }) => {
 
   //Accedeer al state
   const state = useSelector((state: any) => state.productos);
-
-
+  const alertState = useSelector((state: any) => state.alert.alert)
 
 
   // llamar action productAction
@@ -26,10 +28,16 @@ const NewProduct = ({ history }) => {
 
     //validate
     if (name.trim() === "" || price <= 0) {
+      const alert = {
+        message: 'Both fields are required!',
+        classes: 'alert alert-danger text-center text-uppercase p3'
+      }
+      dispatch(showAlert(alert));
       return;
     }
 
     //there are no erros
+    dispatch(hideAlertAction());
 
     //create product
     addProduct({ name, price });
@@ -46,6 +54,7 @@ const NewProduct = ({ history }) => {
             <h2 className="text-center mb-4 font-weight-bold">
               Add new product
             </h2>
+            {alertState ? <p className={alertState.classes}>{alertState.message}</p> : null}
             <form onSubmit={handleNewProduct}>
               <div className="form-group">
                 <label htmlFor="p-name">Product Name</label>

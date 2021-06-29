@@ -15,7 +15,7 @@ const Products = () => {
     const loadProducts = () => dispatch(getProductosAction());
 
     loadProducts();
-
+    // eslint-disable-next-line
   }, []);
 
   //get state

@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editProductAction } from "../actions/productAction";
+import { useHistory } from "react-router-dom";
 
 const EditProduct = () => {
 
+  const history = useHistory();
+
+  const dispatch = useDispatch();
   //state
   const [prodEdit, setProduct] = useState({
     name: "",
@@ -34,8 +38,10 @@ const EditProduct = () => {
 
   const handlerSumbit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    editProductAction(null);
+    dispatch(editProductAction({ id: product.id, nombre: prodEdit.name, precio: prodEdit.price }));
+    history.push('/');
   }
+
   return (
     <div className="row  justify-content-center">
       <div className="col-md-8">
