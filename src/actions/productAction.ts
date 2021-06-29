@@ -16,6 +16,8 @@ import {
 
 import axios from "./../config/axios";
 import Swal from "sweetalert2";
+import { Dispatch } from "redux";
+import { AppActions } from "../interfaces/app.interface";
 //create new products
 
 export function createNewProductAction(product) {
@@ -96,7 +98,7 @@ const downloadProductsError = () => ({
 
 //SELECT AND DELETE PRODUCT
 export function deleteProductAction(id) {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch<AppActions>) => {
         dispatch(getProductDelete(id));
         try {
             await axios.delete(`/productos/${id}`);
@@ -138,7 +140,7 @@ export function getProductEditAction(product) {
 }
 
 export function editProductAction(product) {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch<AppActions>) => {
         dispatch({
             type: START_PRODUCT_EDIT
         })
@@ -150,10 +152,10 @@ export function editProductAction(product) {
                 payload: response.data
             });
         } catch (error) {
-           dispatch({
-               type: PRODUCT_EDIT_ERROR,
-               payload: true
-           })
+            dispatch({
+                type: PRODUCT_EDIT_ERROR,
+                payload: true
+            })
         }
     }
 }

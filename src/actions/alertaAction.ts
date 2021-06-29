@@ -1,9 +1,11 @@
+
+import { Dispatch } from "redux";
+import { Alert, AppActions } from "../interfaces/app.interface";
 import { SHOW_ALERT, HIDE_ALERT } from "../types";
 
 //Show alert
-export function showAlert(alert: any) {
-    console.log(alert);
-    return (dispatch) => {
+export function showAlert(alert: Alert) {
+    return (dispatch: Dispatch<AppActions>) => {
         dispatch({
             type: SHOW_ALERT,
             payload: alert
@@ -13,7 +15,7 @@ export function showAlert(alert: any) {
 
 //Hide alert
 export function hideAlertAction() {
-    return (dispatch)=>{
+    return (dispatch: Dispatch<AppActions>) => {
         dispatch({
             type: HIDE_ALERT,
             payload: null
